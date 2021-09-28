@@ -68,7 +68,7 @@ public class CityDao {
         List<City> result;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            Query<City> query = session.createQuery("FROM City ORDER BY district, name ASC", City.class);
+            Query<City> query = session.createQuery("FROM City ORDER BY district, name DESC", City.class);
             result = query.getResultList();
             session.getTransaction().commit();
         }
