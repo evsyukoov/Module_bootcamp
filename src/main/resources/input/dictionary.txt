@@ -1,0 +1,16 @@
+1; moscow; Moscow; Central; 15000000; 1147
+2; Novosibirsk; Novosibirskaya oblast; West Siberia; 1500000; 1800
+3;irkutsk;Irkutskaya oblast; East Siberia; 800000; 1661
+4;bratsk;Irkutskaya oblast; East Siberia; 350000; 1955
+5;Yakutsk;Yakutia;Far East; 350000;  1632
+6; Nerungri;Yakutia; Far East; 47000; 1975
+7;Tynda;Amurskaya oblast; Far East; 25000; 1975
+8;Blagovechensk;Amurskaya oblast;Far East; 230000; 1801
+9;Krasnodar; Krasnodarskii krai ;Central; 500000;  1701
+10;Sochi; Krasnodarskii krai; Central;700000;1900
+11;vladimir; Vladimirskaya oblast; Central;  350000; 988
+12; Vladikavkaz; Osetia republic; Central; 350000; 1803
+13; Krasnoyarsk; Krasnoyarskii krai; West Siberia; 900000; 1900
+14; Aldan; Yakutia; Far East;27000; 1856
+15; Kazan; Tatarstan; Central; 1000000; 1305
+16; Naberejnii Chelni; Tatarstan; Central; 500000; 1600
