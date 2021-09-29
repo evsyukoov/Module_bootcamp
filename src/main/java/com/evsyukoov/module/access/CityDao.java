@@ -7,12 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CityDao {
+public class CityDao implements DAO<City> {
 
     final private static SessionFactory factory;
 
@@ -22,7 +19,8 @@ public class CityDao {
                 .buildSessionFactory();
     }
 
-    public static void addCity(City city) {
+    @Override
+    public void addEntity(City city) {
         boolean exit = false;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
@@ -42,7 +40,8 @@ public class CityDao {
         }
     }
 
-    public static List<City> getAllCities() {
+    @Override
+    public List<City> getAllEntities() {
         List<City> result;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
@@ -53,7 +52,8 @@ public class CityDao {
         return result;
     }
 
-    public static List<City> getAllCitiesSorted() {
+    @Override
+    public List<City> getAllEntitiesSorted() {
         List<City> result;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
@@ -64,7 +64,8 @@ public class CityDao {
         return result;
     }
 
-    public static List<City> getAllCitiesGrouping() {
+    @Override
+    public List<City> getAllEntitiesGrouping() {
         List<City> result;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
@@ -74,21 +75,4 @@ public class CityDao {
         }
         return result;
     }
-
-    public static String getMaxPopulation() {
-        City cityWithMaxPopulation = Collections.max(getAllCities(), (City a, City b)
-                -> Integer.compare(a.getPopulation(), b.getPopulation()));
-        return String.format("[%d] - %d", cityWithMaxPopulation.getId(), cityWithMaxPopulation.getPopulation());
-    }
-
-    public static List<String> getRegions() {
-        List<City> cities = getAllCities();
-        List<String> result = new ArrayList<>();
-        cities.stream()
-                .collect(Collectors.groupingBy(City::getRegion, Collectors.counting()))
-                .forEach((k, v) ->
-                    result.add(String.format("%s - %d", k, v)));
-        return result;
-    }
-
 }

@@ -1,17 +1,16 @@
 package com.evsyukoov.module;
 
 import com.evsyukoov.module.access.CityDao;
+import com.evsyukoov.module.access.DAO;
 import com.evsyukoov.module.entities.City;
 import com.evsyukoov.module.exceptions.AlreadyInDatabaseException;
 import com.evsyukoov.module.exceptions.UserParseException;
+import com.evsyukoov.module.service.CityService;
 
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Manager {
 
@@ -53,9 +52,10 @@ public class Manager {
         Scanner scanner = new Scanner(inputStream);
         scanner.useDelimiter(DELIMETR);
         int addToRepo = 0;
+        DAO<City> dao = new CityDao();
         while (scanner.hasNext()) {
             try {
-                CityDao.addCity(parseLine(scanner.next()));
+                dao.addEntity(parseLine(scanner.next()));
                 addToRepo++;
             }
             catch (AlreadyInDatabaseException e) {
@@ -82,22 +82,23 @@ public class Manager {
     public void mainMenuListener() {
         printMainMenu();
         Scanner scanner = new Scanner(System.in);
+        CityDao dao = new CityDao();
         while (scanner.hasNext()) {
             String task = scanner.next();
             if (task.equals("1")) {
-                CityDao.getAllCities().forEach(System.out::println);
+                dao.getAllEntities().forEach(System.out::println);
             } else if (task.equals("2")) {
                 printExtraMenu();
                 String extraTask = scanner.next();
                 if (extraTask.equals("1")) {
-                    CityDao.getAllCitiesSorted().forEach(System.out::println);
+                    dao.getAllEntitiesSorted().forEach(System.out::println);
                 } else if (extraTask.equals("2")) {
-                    CityDao.getAllCitiesGrouping().forEach(System.out::println);
+                    dao.getAllEntitiesGrouping().forEach(System.out::println);
                 }
             } else if (task.equals("3")) {
-                System.out.println(CityDao.getMaxPopulation());
+                System.out.println(new CityService(dao).getMaxPopulation());
             } else if (task.equals("4")) {
-                CityDao.getRegions().forEach(System.out::println);
+                new CityService(dao).getRegions().forEach(System.out::println);
             }
             printMainMenu();
         }
